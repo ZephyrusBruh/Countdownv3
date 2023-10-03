@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Test Remote -->
+     <!-- Test Local -->
+
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
@@ -31,8 +37,25 @@
 
     
     <footer> Made by Zeph Burek and Arlo Russell</footer>
-    
+    <script>
+        //Pulls dates from a cq
+fetch("https://ects-cmp.com/files/calendar.json")
+.then(resp => resp.json())
+.then(data => {
+    for(let i = 0; i<data.events.length; i++){
+        console.log(data.events[i].event);
+        for(let j = 0; j<data.events[i].days.length; j++){
+            console.log(data.events[i].days[j]);
+        }
+    }
 
 
+})
+
+//Write start date and end date when you can think again
+system.out.println("Words")
+    </script>
 </body>
 </html>
+
+<!--Are you happy with the colors? Like, are these the finale color's of your choosing?-->
