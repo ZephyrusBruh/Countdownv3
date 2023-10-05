@@ -11,51 +11,86 @@
     <title>Title</title>
     <style>
         header {
-            background-color: #194D33;
+            background-color: #ad89cc;
             padding: 30px;
             text-align: center;
             font-size: 35px;
-            color: #BEE1D0;
+            color: #352047;
+            margin-bottom: 20px;
         }
         footer {
-            background-color: #194D33;
+            background-color: #ad89cc;
             padding: 10px;
             text-align: center;
-            color: #BEE1D0;
+            color: #352047;
+            margin-top: 20px;
         }
-        p.outset {border-style: outset;}
+                
+        .big-container{
+            width: 25%;
+            height: 25%;
+            background-color:gray;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            font-size: 35px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+        }
+        body, html{
+            height: 100%;
+        }
         
     </style>
 </head>
 <body>
+    <script>
+        //Pulls dates from a cq
+        fetch("https://ects-cmp.com/files/calendar.json")
+        .then(resp => resp.json())
+        .then(data => {
+
+                processDataFile(data);
+                
+        })
+
+        //Write start date and end date when you can think again
+        console.log("words");
+        console.log("");
+
+        
+        
+        
+        function processDateFile(data){
+            for(let j = 0; j<data.events[i].days.length; j++){
+                console.log(data.events[i].days[j]);
+                }
+           
+        }
+
+
+
+
+    </script>
     <header> <h1> Days until Summer Break! </h1></header>
 
-    <p class="outset"> Date??</p>
-    <p> hold on</p>
-    <p> woah figuring this shizzle out</p>
 
+    <div class="big-container">
+        <p>145</p>
+    </div>
+
+
+
+        <div class="container rounded" style="width:25%; height:25%; background-color:#ff0000">Words</div>
+    <!--Stretchy---->
 
     
     <footer> Made by Zeph Burek and Arlo Russell</footer>
-    <script>
-        //Pulls dates from a cq
-fetch("https://ects-cmp.com/files/calendar.json")
-.then(resp => resp.json())
-.then(data => {
-    for(let i = 0; i<data.events.length; i++){
-        console.log(data.events[i].event);
-        for(let j = 0; j<data.events[i].days.length; j++){
-            console.log(data.events[i].days[j]);
-        }
-    }
-
-
-})
-
-//Write start date and end date when you can think again
-system.out.println("Words")
-    </script>
+    
 </body>
 </html>
 
-<!--Are you happy with the colors? Like, are these the finale color's of your choosing?-->
+<!--Are you happy with the colors? Like, are these the final color's of your choosing?-->
