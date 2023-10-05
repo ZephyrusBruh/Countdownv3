@@ -11,31 +11,37 @@
     <title>Title</title>
     <style>
         header {
-            background-color: #194D33;
+            background-color: #ad89cc;
             padding: 30px;
             text-align: center;
             font-size: 35px;
-            color: #BEE1D0;
+            color: #352047;
         }
         footer {
-            background-color: #194D33;
+            background-color: #ad89cc;
             padding: 10px;
             text-align: center;
-            color: #BEE1D0;
+            color: #352047;
         }
-        p.outset {border-style: outset;}
+                
+        .big-container{
+            width: 620px;
+            height: 500px;
+            background-color:gray;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            font-size: 35px;
+        }
+        body, html{
+            height: 100%;
+        }
         
     </style>
 </head>
 <body>
-    <header> <h1> Days until Summer Break! </h1></header>
-    <p class="outset"> Date??</p>
-    <p> hold on</p>
-    <p> woah figuring this shizzle out</p>
-
-
-    
-    <footer> Made by Zeph Burek and Arlo Russell</footer>
     <script>
         //Pulls dates from a cq
 fetch("https://ects-cmp.com/files/calendar.json")
@@ -51,9 +57,26 @@ fetch("https://ects-cmp.com/files/calendar.json")
 
 })
 
-//Write start date and end date when you can think again 
-console.log("Words");
+//Write start date and end date when you can think again
+console.log("words");
+console.log("")
     </script>
+    <header> <h1> Days until Summer Break! </h1></header>
+    <br>
+    <center>
+    <div class="big-container">
+        <dix class="container"><p>145</p></div>
+    </div>
+    </center>
+<br>
+    <center>
+        <div class="container rounded" style="width:620px; height:500px; background-color:#ff0000">Words</div>
+    </center>
+
+<br>
+    
+    <footer> Made by Zeph Burek and Arlo Russell</footer>
+    
 </body>
 </html>
 
