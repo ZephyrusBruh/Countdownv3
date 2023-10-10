@@ -8,38 +8,90 @@
      <!-- Test Local -->
 
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Count Down</title>
     <style>
         header {
             background-color: #ad89cc;
+            color: #352047;
             padding: 30px;
             text-align: center;
             font-size: 35px;
-            color: #352047;
             margin-bottom: 20px;
         }
         footer {
             background-color: #ad89cc;
+            color: #352047;
             padding: 10px;
             text-align: center;
-            color: #352047;
             margin-top: 20px;
         }
                 
         .big-container{
-            width: 25%;
+            width: 50%;
             height: 25%;
-            background-color:gray;
+            background-color:#e7d7f4;
+            color:#572782;
             display: flex;
-            align-content: center;
             justify-content: center;
             align-items: center;
             align-self: center;
             font-size: 35px;
             margin-top: 20px;
             margin-bottom: 20px;
+            font-family:Georgia, serif;
+            border-radius: 10%;
 
         }
+        .big-container-w-inner{
+            width: 50%;
+            background-color:#e7d7f4;
+            color:#572782;
+            justify-content: center;
+            align-items:center;
+            align-self: center;
+            font-size: 35px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-family:Georgia, serif;
+            border-radius: 10%;
+            display: grid;
+
+        }
+
+        .big-container-w-scroll{
+            width: 50%;
+            height: 25%;
+            background-color:#e7d7f4;
+            color:#572782;
+            display: flex;
+            justify-content: center;
+            align-self: center;
+            font-size: 28px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-family:Georgia, serif;
+            border-radius: 10px;
+            overflow: auto;
+
+        }
+
+
+        .mini-container{
+            width: 90%;
+            height: 80%;
+            background-color:#ad89cc;
+            color:#352047;
+            align-items:center;
+            justify-content:center;
+            display:flex;
+            font-size:20px;
+            border-radius:10px;
+            margin:10px;
+            overflow: start;
+
+        }
+
+
         body, html{
             height: 100%;
         }
@@ -77,14 +129,66 @@
     </script>
     <header> <h1> Days until Summer Break! </h1></header>
 
-
     <div class="big-container">
         <p>145</p>
     </div>
 
 
+        <div class="big-container-w-inner">
+            <div class="mini-container">
+                Words in small box?
+            </div>
+            
+            <div class="mini-container">
+                They won't stack lol
+            </div>
+            <div class="mini-container">
+                Words in small box?
+            </div>
+            
+            <div class="mini-container">
+                They do now
+            </div>
+            <div class="mini-container">
+                Words in small box?
+            </div>
+            
+            <div class="mini-container">
+                But they're the wrong size which sucks. Nevermind...they're just being weird...
+            </div>
+            <div class="mini-container">
+                Words in small box?
+            </div>
+            
+            <div class="mini-container">
+                I removed the little height setting
+            </div>
+            <div class="mini-container">
+                Words in small box?
+            </div>
+            
+            <div class="mini-container">
+                now this box grows with the other boxes
+            </div>
+            <div class="mini-container">
+                Words in small box?
+            </div>
+            
+            <div class="mini-container">
+                They still look weird...
+            </div>
 
-        <div class="container rounded" style="width:25%; height:25%; background-color:#ff0000">Words</div>
+        </div>
+
+        <div class="big-container-w-scroll">
+            <p>This is an example of a box with scrolls which looks <i>way</i> better than the ever growing boxes we would've had should we just overflow with text.
+                <br>
+                <br>I wonder if I can change the color of the scroll. That would be nice, I dont like the currnet gray and white one. Too boring.
+                <br>
+                <br>These are double broken because using paragraph tags makes them go in colloums that I can't figure out.</p>
+                <p>test</p>
+        </div>
+        <!--Can't get them to stack >:(-->
     <!--Stretchy---->
 
     
@@ -93,4 +197,10 @@
 </body>
 </html>
 
-<!--Are you happy with the colors? Like, are these the final color's of your choosing?-->
+<!--Are you happy with the colors? Like, are these the final colors of your choosing?-->
+<!--I don't know what's going on with the width for the mini boxes, they're killing me inside and I hate them...but they're pretty.-->
+
+<!--Html Notes:-->
+<!--Border-radius is the rounded corners. I do not know the diff between % and px here-->
+<!--align-items: center puts them at the center top to bottom-->
+<!--justify-content puts them in the center side to side-->
