@@ -102,6 +102,8 @@
             font-size:20px;
             border-radius:10px;
             margin:10px;
+            margin-left: auto;
+            margin-right:auto;
             overflow: start;
 
         }
@@ -127,7 +129,7 @@
         //Write start date and end date when you can think again
         // (For some reason, this [BEEP] mostly got deleted and [BEEP]-ed with???)
         function processDateFile(data){
-
+            console.log(data);
             for(let i = 0; i<data.events.length; i++){ 
                 console.log(data.events[i].event); 
                     for(let j = 0; j<data.events[i].days.length; j++){
@@ -143,6 +145,21 @@
             console.log(data.events[0].days[0]);//the first associated day of the event
             document.getElementById("enddate").innerHTML = enddate;
 
+            //get the current date (it will be a date object)
+            var today = new Date();
+            var dd = String(today.getDate());
+            var mm = String(today.getMonth() + 1);
+            var yyyy = today.getFullYear();
+            today = mm + '/' + dd + '/' + yyyy;
+            document.getElementById("today").innerHTML = today;
+
+            //convert the enddate to a date object
+            var enddate = new Date();
+            
+            //print out how many days from now until then
+            //print out how many of those are weekdays (weekdaysLeft) //https://howlonghowmany.com/how-many-weekdays-until-june-6-2024
+            //subtract all days listed as events after today from the weekdaysLeft 
+
         }
 
     </script>
@@ -150,6 +167,9 @@
     <center> <!--Leave us alone, it'll go away later (maybe)-->
     <div class="big-container">
         <p id="enddate">  </p>
+    </div>
+    <div class="big-container">
+        <p id="today">  </p>
     </div>
 
         
@@ -232,3 +252,6 @@
 <!-- (But I think I actually know what I'm doing!)-->
 <!-- (I am also calm now, but maybe it's because I am distracted)-->
 <!-- (I lied, no longer knowing what Im doing) -->
+
+<!--I have no idea what magic you pulled to get the start date/end date to work lol-->
+<!--Have no idea what to do rn. Might go work on TH-->
