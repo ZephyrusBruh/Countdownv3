@@ -121,11 +121,8 @@
         fetch("https://ects-cmp.com/files/calendar.json")
         .then(resp => resp.json())
         .then(data => {
-
-                processDateFile(data);
-                
+                processDateFile(data);               
         })
-
         //Write start date and end date when you can think again
         // (For some reason, this [BEEP] mostly got deleted and [BEEP]-ed with???)
         function processDateFile(data){
@@ -148,7 +145,7 @@
                 }   
                 return count;
             }
-            var enddate = data.endday;
+            var enddate = new Date(data.endday);
             var startdate = data.startday;
             console.log(enddate);
             console.log(data.events[0]);//the whole first event object
@@ -161,16 +158,14 @@
             var dd = String(today.getDate());
             var mm = String(today.getMonth() + 1);
             var yyyy = today.getFullYear();
-            today = mm + '/' + dd + '/' + yyyy;
-            document.getElementById("today").innerHTML = today;
-            //convert the enddate to a date object
-            var enddate = new Date();
+            var todaystr = mm + '/' + dd + '/' + yyyy;
+            document.getElementById("today").innerHTML = today;                      
             //print out how many days from now until then
-            //print out how many of those are weekdays (weekdaysLeft) //https://howlonghowmany.com/how-many-weekdays-until-june-6-2024
-            //subtract all days listed as events after today from the weekdaysLeft 
-            var weekdaysCount = getWeekdayCount(today, enddate);
-            document.getElementById("weekdaysCount").innerHTML = weekdaysCount;
 
+            //convert the enddate to a date object  
+                        //subtract all days listed as events after today from the weekdaysLeft 
+                        var weekdaysCount = getWeekdayCount(today, enddate);
+            document.getElementById("weekdaysCount").innerHTML = weekdaysCount;
         }
 
     </script>
