@@ -30,8 +30,6 @@
             margin: auto;
         }    
         .big-container{
-            width: 50%;
-            height: 50%;
             background-color:#e7d7f4;
             color:#572782;
             display: flex;
@@ -39,18 +37,18 @@
             align-items: center;
             align-self: center;
             background-color:#e7d7f4;
-            border-radius: 10%;
+            border-radius: 50px;
             box-shadow: 10px 5px 5px #ad89cc;
             color:#572782;
             display: flex;
             font-family:Georgia, serif;
-            font-size: 35px;
+            font-size: 75px;
             justify-content: center;
             margin-bottom: 20px;
             margin-top: 20px;
 
             height: 25%;
-            width: 50%;
+            width: 75%;
 
         }
 
@@ -58,41 +56,25 @@
             align-items:center;
             align-self: center;
             background-color:#e7d7f4;
-            border-radius: 10%;
+            border-radius: 50px;
             box-shadow: 10px 5px 5px #ad89cc;
             color:#572782;
-            display: grid;
+            /*display: grid;*/
             font-family:Georgia, serif;
             font-size: 35px;
             justify-content: center;
             margin-top: 20px;
             margin-bottom: 20px;
+            padding-top: 4px;
+            padding-bottom: 4px;
 
-            width: 50%;
-
-        }
-
-        .big-container-w-scroll{
-            align-self: center;
-            background-color:#e7d7f4;
-            border-radius: 10px;
-            box-shadow: 10px 5px 5px #ad89cc;
-            color:#572782;
-            display: flex;
-            font-family:Georgia, serif;
-            font-size: 28px;
-            justify-content: center;
-            margin-bottom: 20px;
-            margin-top: 20px;
-            overflow: auto;
-
-            height: 25%;
-            width: 50%;
+            width: 75%;
 
         }
+
 
         .mini-container{
-            width: 90%;
+            width: 80%;
             height: 80%;
             background-color:#ad89cc;
             color:#352047;
@@ -100,11 +82,12 @@
             justify-content:center;
             display:flex;
             font-size:20px;
-            border-radius:10px;
+            border-radius:50px;
             margin:10px;
             margin-left: auto;
             margin-right:auto;
             overflow: start;
+
 
         }
 
@@ -112,13 +95,38 @@
             height: 100%;
             justify-items:center;
         }
+
+        p {
+            margin: 6%;
+            font-size: 40px;
+            
+        }
+
+       
         
     </style>
 </head>
 <body>
-    <script>
+    
+    
+    <header> <h1> Days until Summer Break! </h1></header>
+    <center> <!--Leave us alone, it'll go away later (maybe)-->
+
+        <div class="big-container">
+            <p  style="font-size:100px" id="weekdaysLeft"></p>
+        </div>
+
+        <br>
+    <div id="important-dates" class="big-container-w-inner"></div>
+
+        <!--Can't get them to stack >:(    -->
+    <!--Stretchy---->
+<br>
+    <footer> Made by Zeph Burek and Arlo Russell </footer>
+    <script >
         let startDate, endDate;
         let dateData;
+        const importantDatesDiv = document.getElementById("important-dates");
         //Pulls dates from a cq
         fetch("https://ects-cmp.com/files/calendar.json")
         .then(resp => resp.json())
@@ -130,29 +138,31 @@
         function processDateFile(data){
             printThings(data);
             dateData = data;
-            document.getElementById("enddate").innerHTML = enddate; //haha...
+
+            
             //get the current date (it will be a date object)
             var today = new Date();
             var dd = String(today.getDate());
             var mm = String(today.getMonth() + 1);
             var yyyy = today.getFullYear();
             var todaystr = mm + '/' + dd + '/' + yyyy;
-            document.getElementById("today").innerHTML = today;                      
+           // document.getElementById("today").innerHTML = today;                      
             //print out how many days from now until then
             endDate = data.endday;
             startDate = data.startday;
 
             //convert the enddate to a date object  
-                        //subtract all days listed as events after today from the weekdaysLeft 
+            //subtract all days listed as events after today from the weekdaysLeft 
             var weekdaysCount = getWeekdayCount(today, endDate);
-            document.getElementById("weekdaysCount").innerHTML = weekdaysCount;
-
+          //  document.getElementById("weekdaysCount").innerHTML = weekdaysCount;
             var daysOffCount = getDaysOffLeft(today, endDate);
+
 
             var weekdaysLeft = weekdaysCount - daysOffCount;
             document.getElementById("weekdaysLeft").innerHTML = weekdaysLeft;
-
+           // document.getElementById("enddate").innerHTML = endDate; //haha...
             
+
         }
 
         function getWeekdayCount() {
@@ -174,12 +184,18 @@
             
         function getDaysOffLeft(){
             let count = 0;
+            importantDatesDiv.innerHTML = "";
             const currentDate = new Date();
             for(let i = 0; i<dateData.events.length; i++){ 
                 for(let j = 0; j<dateData.events[i].days.length; j++){
                     let dayOffDate = new Date(dateData.events[i].days[j])
                     if( dayOffDate> currentDate){
                         count ++;
+                        importantDatesDiv.innerHTML += `
+                        <div class="mini-container">
+                            <p class="eventitem"> ${dateData.events[i].event} : ${dateData.events[i].days[j]} </p>
+                        </div>
+                        `;
                     }
                 }
             }
@@ -203,57 +219,14 @@
             console.log(data.events[0].days[0]);//the first associated day of the event
         }
     </script>
-    
-    <header> <h1> Days until Summer Break! </h1></header>
-    <center> <!--Leave us alone, it'll go away later (maybe)-->
-    <div class="big-container">
-        <p id="enddate">  </p>
-    </div>
-    <!--That's suspicious...That's weird-->
-    <!--Well...at least the problem you were having is gone...-->
-    <div class="big-container">
-        <p> I don't know what happened there ^^</p>
-    </div>
-        
-    <div class="big-container-w-inner">
-        <div class="mini-container">
-            Today
-        </div>
-        
-        <div class="mini-container">
-            <p id="today"> </p>
-        </div>
-        <div class="mini-container">
-            Week Days
-        </div>
-        
-        <div class="mini-container">
-            <p id="weekdaysCount"> </p>
-        </div>
-        <div class="mini-container">
-            School Days Left
-        </div>
-        
-        <div class="mini-container">
-            <p id="weekdaysLeft"> </p>
-        </div>
-    </div>
-
-    <div class="big-container-w-scroll">
-        <p>This is an example of a box with scrolls which looks <i>way</i> better than the ever growing boxes we would've had should we just overflow with text.
-            <br>
-            <br>I wonder if I can change the color of the scroll. That would be nice, I dont like the currnet gray and white one. Too boring.
-            <br>
-            <br>These are double broken because using paragraph tags makes them go in colloums that I can't figure out.</p>
-            
-    </div>
-        <!--Can't get them to stack >:(    -->
-    <!--Stretchy---->
-
-    <footer> Made by Zeph Burek and Arlo Russell </footer>
-    
 </body>
 </html>
+<!--Html Notes:-->
+<!--Border-radius is the rounded corners.-->
+<!--align-items: center puts them at the center top to bottom-->
+<!--justify-content puts them in the center side to side-->
+<!--Appearantly height doesn't apply when the boxes are centered-->
+
 <!--Note Key-->
 <!--Arlo-->
 <!--(Zeph)-->
@@ -262,11 +235,6 @@
 <!--I put an align enter in the body css. I can't check it tho-->
 <!--I have no idea how to center align everything and I'm very annoyed so you're now going to have drop shadows-->
 <!--And now I shall order our CSS in alphabetical order.-->
-
-<!--Html Notes:-->
-<!--Border-radius is the rounded corners. I do not know the diff between % and px here-->
-<!--align-items: center puts them at the center top to bottom-->
-<!--justify-content puts them in the center side to side-->
 
 <!-- (JavaScript will be the death of me) -->
 <!-- (But I think I actually know what I'm doing!)-->
@@ -280,3 +248,6 @@
 
 <!--Stupid text boses not holding the infor I need them to.-->
 <!--How did I write that so bad????? What????-->
+<!--I have no idea what happened to the enddate. I might drag Klins to figure it out-->
+<!--*Confused Screaming*-->
+<!--OMG THE BORDERS WERE IN % IM GOING TO DIE AAAAAAHHHHHHHHh-->
