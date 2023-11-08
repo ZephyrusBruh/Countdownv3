@@ -8,7 +8,7 @@
     <!-- Test Local -->
 
     <meta charset="UTF-8">
-    <title>Count Down To Freedom</title>
+    <title>Count Your Days</title>
     <style>
         header {
             background-color: #ad89cc;
@@ -29,30 +29,8 @@
             display: inline-block;
             margin: auto;
         }    
+
         .big-container{
-            background-color:#e7d7f4;
-            color:#572782;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            align-self: center;
-            background-color:#e7d7f4;
-            border-radius: 50px;
-            box-shadow: 10px 5px 5px #ad89cc;
-            color:#572782;
-            display: flex;
-            font-family:Georgia, serif;
-            font-size: 75px;
-            justify-content: center;
-            margin-bottom: 20px;
-            margin-top: 20px;
-
-            height: 25%;
-            width: 75%;
-
-        }
-
-        .big-container-w-inner{
             align-items:center;
             align-self: center;
             background-color:#e7d7f4;
@@ -63,8 +41,10 @@
             font-family:Georgia, serif;
             font-size: 35px;
             justify-content: center;
-            margin-top: 20px;
+            /*margin-top: 20px;
             margin-bottom: 20px;
+            */
+            margin: 20px auto;
             padding-top: 4px;
             padding-bottom: 4px;
 
@@ -80,15 +60,35 @@
             color:#352047;
             align-items:center;
             justify-content:center;
-            display:flex;
             font-size:20px;
             border-radius:50px;
             margin:10px;
             margin-left: auto;
             margin-right:auto;
             overflow: start;
+            padding: 1% 0;
+            
 
+        }
 
+        .fall{
+            background-color:#dd8028;
+            color:#643204;
+        }
+
+        .winter{
+            background-color:#d1eaf0;
+            color:#3f6069;
+        }
+
+        .spring{
+            background-color:#8ed48e;
+            color:#255325;
+        }
+
+        .merica{
+            background: rgb(177,36,36);
+            background: linear-gradient(90deg, rgba(177,36,36,1) 0%, rgba(255,255,255,1) 50%, rgba(29,29,143,1) 100%);        
         }
 
         body, html{
@@ -96,33 +96,69 @@
             justify-items:center;
         }
 
-        p {
+        .mini-container p {
             margin: 6%;
             font-size: 40px;
             
         }
 
-       
-        
+        .mini-container ul {
+            list-style: none;
+            font-size: 30px;
+            padding-left: 0;
+       }
+
+        @media all and (max-width: 480px) {
+            .mini-container p:not(#daysLeft) {
+            margin: 6%;
+            font-size: 20px;
+            
+            }
+        }
+
+        #centerDiv{
+            text-align: center;
+        }
+
+        .hidden{
+            display: none;
+        }
     </style>
 </head>
 <body>
     
     
     <header> <h1> Days until Summer Break! </h1></header>
-    <center> <!--Leave us alone, it'll go away later (maybe)-->
+    <div id="centerDiv">
 
-        <div class="big-container">
+        <div id="fileUpload" class="hidden">
+            <input type="file" id="calendarFile"/><button id="processFile">Load</button>
+        </div>
+    
+     <!--Leave us alone, it'll go away later (maybe)-->
+        <!--So...about the center tag...( ;._.)-->
+
+        <div class="big-container" title="School Days Left">
             <p  style="font-size:100px" id="weekdaysLeft"></p>
+        </div>
+        <div class="mini-container" style="width:25%; box-shadow: 10px 5px 5px #6e4592;
+        ">
+            <p id="daysLeft"></p>
         </div>
 
         <br>
-    <div id="important-dates" class="big-container-w-inner"></div>
+    <div id="important-dates" class="big-container"></div>
 
         <!--Can't get them to stack >:(    -->
     <!--Stretchy---->
 <br>
-    <footer> Made by Zeph Burek and Arlo Russell </footer>
+    
+<footer> Made by Zeph Burek and Arlo Russell </footer>
+</div>
+
+
+
+
     <script >
         let startDate, endDate;
         let dateData;
@@ -162,7 +198,25 @@
             document.getElementById("weekdaysLeft").innerHTML = weekdaysLeft;
            // document.getElementById("enddate").innerHTML = endDate; //haha...
             
+            var daysLeft = getDaysLeft(today, endDate);
+            document.getElementById("daysLeft").innerHTML = daysLeft
+            checkParams();
 
+        }
+        
+        function getDaysLeft() {
+            let count = 0;
+            const currentDate = new Date();
+            const endDateObj = new Date(endDate);
+            console.log(currentDate);
+            console.log(endDate);
+            while (currentDate <= endDateObj) {
+                
+                const dayOfWeek = currentDate.getDay();
+                        count++;
+                currentDate.setDate(currentDate.getDate() + 1);
+            }   
+            return count;
         }
 
         function getWeekdayCount() {
@@ -187,21 +241,47 @@
             importantDatesDiv.innerHTML = "";
             const currentDate = new Date();
             for(let i = 0; i<dateData.events.length; i++){ 
+                let foundFutureDates =false;
+                let eventName = dateData.events[i].event;
+                let eventClass = getEventClass(eventName);
+                let newDiv = `<div class="mini-container ${eventClass}"><p>${eventName}</p><ul>`;
                 for(let j = 0; j<dateData.events[i].days.length; j++){
                     let dayOffDate = new Date(dateData.events[i].days[j])
                     if( dayOffDate> currentDate){
                         count ++;
-                        importantDatesDiv.innerHTML += `
-                        <div class="mini-container">
-                            <p class="eventitem"> ${dateData.events[i].event} : ${dateData.events[i].days[j]} </p>
-                        </div>
+                        foundFutureDates = true;
+                        newDiv +=
+                         `                    
+                            <li class="eventitem">  ${dateData.events[i].days[j]} </li>
+                        
                         `;
+                        //Help I'm breaking things
+                        //How do I color code these based on time/event?
+                        //I have no idea what I'm doing
+                        //Got it, yay.
                     }
+                }
+                if(foundFutureDates){
+                    newDiv += `</ul></div>`;
+                    importantDatesDiv.innerHTML += newDiv;
                 }
             }
             return count;
         }
 
+        function getEventClass(eventName){
+            switch(eventName.toUpperCase()){
+                case "THANKSGIVING BREAK":
+                    return "fall";
+                case"WINTER BREAK":
+                    return "winter";
+                case "SPRING BREAK":
+                    return "spring";
+                case "PRESIDENTS' DAY":
+                case "MEMORIAL DAY":
+                    return "merica";
+            }
+        }
 
         function printThings(data){
             console.log(data);
@@ -218,7 +298,16 @@
             console.log(data.events[0].days);//the days associated with the event
             console.log(data.events[0].days[0]);//the first associated day of the event
         }
+
+        function checkParams(){
+            let params = new URLSearchParams(document.location.search);
+            let showFile = params.get("showfileupload"); // is the string "Jonathan"
+            if(showFile != undefined){
+                document.getElementById("fileUpload").classList.remove("hidden");
+            }
+        }
     </script>
+    
 </body>
 </html>
 <!--Html Notes:-->
