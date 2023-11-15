@@ -96,10 +96,16 @@
             justify-items:center;
         }
 
-        .mini-container p {
+        .big {
             margin: 6%;
+            margin-bottom:0;
             font-size: 40px;
-            
+        }
+        .smol{
+            margin:6%;
+            margin-top: 1%;
+            font-size:25px;
+            margin-bottom: 0;
         }
 
         .mini-container ul {
@@ -143,7 +149,7 @@
         </div>
         <div class="mini-container" style="width:25%; box-shadow: 10px 5px 5px #6e4592;
         ">
-            <p id="daysLeft"></p>
+            <p class="big" style="margin:6%" id="daysLeft"></p>
         </div>
 
         <br>
@@ -234,7 +240,7 @@
             return count;
         }
 
-            
+            //https://i.pinimg.com/originals/6e/57/be/6e57be0a1421720a0fbcd618727b9e3e.gif <-- Yippee
         function getDaysOffLeft(){
             let count = 0; //counts the number o' days off 
             importantDatesDiv.innerHTML = "";
@@ -247,7 +253,7 @@
                 let newDiv = `<div class="mini-container ${eventClass}">`;
                 let allDaysUntil = getDaysLeft(new Date(), new Date(dateData.events[i].days[0]));
                 let weekDaysUntil = getWeekdayCount(new Date(), new Date(dateData.events[i].days[0]));
-                newDiv += `<p>${eventName}</p><p>${weekDaysUntil - count} / ${allDaysUntil}</p><ul>`;
+                newDiv += `<p class="big">${eventName}</p><p class="smol">(${weekDaysUntil - count} / ${allDaysUntil})</p><ul>`;
                 for(let j = 0; j<dateData.events[i].days.length; j++){
                     let dayOffDate = new Date(dateData.events[i].days[j])
                     if( dayOffDate> currentDate ){
