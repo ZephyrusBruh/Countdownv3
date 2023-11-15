@@ -189,25 +189,25 @@
 
             //convert the enddate to a date object  
             //subtract all days listed as events after today from the weekdaysLeft 
-            var weekdaysCount = getWeekdayCount(today, endDate);
+            var weekdaysCount = getWeekdayCount();
           //  document.getElementById("weekdaysCount").innerHTML = weekdaysCount;
-            var daysOffCount = getDaysOffLeft(today, endDate);
+            var daysOffCount = getDaysOffLeft();
 
 
             var weekdaysLeft = weekdaysCount - daysOffCount;
             document.getElementById("weekdaysLeft").innerHTML = weekdaysLeft;
            // document.getElementById("enddate").innerHTML = endDate; //haha...
             
-            var daysLeft = getDaysLeft(today, endDate);
+            var daysLeft = getDaysLeft();
             document.getElementById("daysLeft").innerHTML = daysLeft
             checkParams();
 
         }
         
-        function getDaysLeft() {
+        function getDaysLeft(currentDate = new Date(), endDateObj = new Date(endDate)) {
             let count = 0;
-            const currentDate = new Date();
-            const endDateObj = new Date(endDate);
+           // const currentDate = new Date();
+           // const endDateObj = new Date(endDate);
             console.log(currentDate);
             console.log(endDate);
             while (currentDate <= endDateObj) {
@@ -219,10 +219,8 @@
             return count;
         }
 
-        function getWeekdayCount() {
+        function getWeekdayCount(currentDate = new Date(), endDateObj = new Date(endDate)) {
             let count = 0;
-            const currentDate = new Date();
-            const endDateObj = new Date(endDate);
             console.log(currentDate);
             console.log(endDate);
             while (currentDate <= endDateObj) {
@@ -235,30 +233,33 @@
             }   
             return count;
         }
+
             
         function getDaysOffLeft(){
-            let count = 0;
+            let count = 0; //counts the number o' days off 
             importantDatesDiv.innerHTML = "";
             const currentDate = new Date();
+            let endDateObj = new Date(endDate);
             for(let i = 0; i<dateData.events.length; i++){ 
                 let foundFutureDates =false;
                 let eventName = dateData.events[i].event;
                 let eventClass = getEventClass(eventName);
-                let newDiv = `<div class="mini-container ${eventClass}"><p>${eventName}</p><ul>`;
+                let newDiv = `<div class="mini-container ${eventClass}">`;
+                let allDaysUntil = getDaysLeft(new Date(), new Date(dateData.events[i].days[0]));
+                let weekDaysUntil = getWeekdayCount(new Date(), new Date(dateData.events[i].days[0]));
+                newDiv += `<p>${eventName}</p><p>${weekDaysUntil - count} / ${allDaysUntil}</p><ul>`;
                 for(let j = 0; j<dateData.events[i].days.length; j++){
                     let dayOffDate = new Date(dateData.events[i].days[j])
-                    if( dayOffDate> currentDate){
-                        count ++;
+                    if( dayOffDate> currentDate ){
+                        if(dayOffDate <= endDateObj){
+                            count ++;
+                        }
                         foundFutureDates = true;
                         newDiv +=
                          `                    
                             <li class="eventitem">  ${dateData.events[i].days[j]} </li>
                         
                         `;
-                        //Help I'm breaking things
-                        //How do I color code these based on time/event?
-                        //I have no idea what I'm doing
-                        //Got it, yay.
                     }
                 }
                 if(foundFutureDates){
@@ -266,6 +267,7 @@
                     importantDatesDiv.innerHTML += newDiv;
                 }
             }
+
             return count;
         }
 
