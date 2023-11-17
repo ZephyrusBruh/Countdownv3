@@ -3,6 +3,8 @@
 <head>
      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    -->
 
     <!-- Test Remote -->
     <!-- Test Local -->
@@ -25,10 +27,6 @@
             padding: 10px;
             text-align: center;
         }
-        .bigger-container{
-            display: inline-block;
-            margin: auto;
-        }    
 
         .big-container{
             align-items:center;
@@ -129,6 +127,16 @@
         .hidden{
             display: none;
         }
+
+        button{
+            cursor: pointer;
+            background-color:#e7d7f4;
+            border-radius: 10px;
+            color:#572782;
+            font-family: georgia, serif;
+            /*border-style: hidden;*/
+            border-color: #e7d7f4;
+        }
     </style>
 </head>
 <body>
@@ -153,14 +161,21 @@
         </div>
 
         <br>
+        <div>
+            <button id="showDaysOff" >Show days off</button>
+            <button id="showMilestones">Show milestones</button>
+
+        </div>
     <div id="important-dates" class="big-container"></div>
+    <div id="important-milestones" class="big-container hidden">Help.</div>
 
         <!--Can't get them to stack >:(    -->
     <!--Stretchy---->
-<br>
-    
+ 
+    </div>
+    <br>
+</body>    
 <footer> Made by Zeph Burek and Arlo Russell </footer>
-</div>
 
 
 
@@ -169,6 +184,17 @@
         let startDate, endDate;
         let dateData;
         const importantDatesDiv = document.getElementById("important-dates");
+        const importantMilestonessDiv = document.getElementById("important-milestones");
+
+        document.getElementById("showDaysOff").addEventListener("click", function(){
+            importantMilestonessDiv.classList.add("hidden");
+            importantDatesDiv.classList.remove("hidden");
+        });
+        document.getElementById("showMilestones").addEventListener("click", function(){
+            importantMilestonessDiv.classList.remove("hidden");
+            importantDatesDiv.classList.add("hidden");
+        });
+
         //Pulls dates from a cq
         fetch("https://ects-cmp.com/files/calendar.json")
         .then(resp => resp.json())
@@ -208,8 +234,11 @@
             document.getElementById("daysLeft").innerHTML = daysLeft
             checkParams();
 
+            dates(data.events, importantDatesDiv); /*KLINS - THIS NEEDS REPEATED FOR MILESTONES  (use data.milestones) - the method may need tweaked */ 
+            
         }
         
+
         function getDaysLeft(currentDate = new Date(), endDateObj = new Date(endDate)) {
             let count = 0;
            // const currentDate = new Date();
@@ -241,11 +270,48 @@
         }
 
             //https://i.pinimg.com/originals/6e/57/be/6e57be0a1421720a0fbcd618727b9e3e.gif <-- Yippee
+
+/*
         function getDaysOffLeft(){
             let count = 0; //counts the number o' days off 
-            importantDatesDiv.innerHTML = "";
             const currentDate = new Date();
             let endDateObj = new Date(endDate);
+            for(let i = 0; i<dateData.events.length; i++){ 
+                let foundFutureDates =false; 
+                for(let j = 0; j<dateData.events[i].days.length; j++){
+                    let dayOffDate = new Date(dateData.events[i].days[j])
+                    if( dayOffDate> currentDate ){
+                        if(dayOffDate <= endDateObj){
+                            count ++;
+                        }
+                    }
+                }
+            }
+
+            return count;
+        }
+*/
+        function getDaysOffLeft(currentDate = new Date(), endDateObj = new Date(endDate)){
+            let count = 0; //counts the number o' days off 
+
+            for(let i = 0; i<dateData.events.length; i++){ 
+                let foundFutureDates =false; 
+                for(let j = 0; j<dateData.events[i].days.length; j++){
+                    let dayOffDate = new Date(dateData.events[i].days[j])
+                    if( dayOffDate> currentDate  && dayOffDate < endDateObj){
+                        if(dayOffDate <= endDateObj){
+                            count ++;
+                        }
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        function dates(){
+            importantDatesDiv.innerHTML = "";
+            const currentDate = new Date();
             for(let i = 0; i<dateData.events.length; i++){ 
                 let foundFutureDates =false;
                 let eventName = dateData.events[i].event;
@@ -253,13 +319,11 @@
                 let newDiv = `<div class="mini-container ${eventClass}">`;
                 let allDaysUntil = getDaysLeft(new Date(), new Date(dateData.events[i].days[0]));
                 let weekDaysUntil = getWeekdayCount(new Date(), new Date(dateData.events[i].days[0]));
-                newDiv += `<p class="big">${eventName}</p><p class="smol">(${weekDaysUntil - count} / ${allDaysUntil})</p><ul>`;
-                for(let j = 0; j<dateData.events[i].days.length; j++){
+                newDiv += `<p class="big">${eventName}</p><p class="smol">(${weekDaysUntil - getDaysOffLeft(currentDate, new Date(dateData.events[i].days[0]))} / ${allDaysUntil})</p><ul>`;
+
+                    for(let j = 0; j<dateData.events[i].days.length; j++){
                     let dayOffDate = new Date(dateData.events[i].days[j])
                     if( dayOffDate> currentDate ){
-                        if(dayOffDate <= endDateObj){
-                            count ++;
-                        }
                         foundFutureDates = true;
                         newDiv +=
                          `                    
@@ -273,9 +337,72 @@
                     importantDatesDiv.innerHTML += newDiv;
                 }
             }
-
-            return count;
         }
+
+        function milestones (){
+            importantMilestonesDiv.innerHTML = "";
+            const currentDate = new Date();
+            for(let i = 0; i<dateData.milestones.length; i++){ 
+                let foundFutureDates =false;
+                let eventName = dateData.milestones[i].event;
+                let eventClass = getEventClass(eventName);
+                let newDiv = `<div class="mini-container ${eventClass}">`;
+                let allDaysUntil = getDaysLeft(new Date(), new Date(dateData.milestones[i].day[0]));
+                let weekDaysUntil = getWeekdayCount(new Date(), new Date(dateData.milestones[i].day[0]));
+                newDiv += `<p class="big">${eventName}</p><p class="smol">(${weekDaysUntil - getDaysOffLeft()} / ${allDaysUntil})</p><ul>`;
+
+                    for(let j = 0; j<dateData.milestones[i].day.length; j++){
+                    let dayOffDate = new Date(dateData.milestones[i].day[j])
+                    if( dayOffDate> currentDate ){
+                        foundFutureDates = true;
+                        newDiv +=
+                         `                    
+                            <li class="eventitem">  ${dateData.milestones[i].day[j]} </li>
+                        
+                        `;
+                    }
+                }
+                if(foundFutureDates){
+                    newDiv += `</ul></div>`;
+                    importantmilestonesDiv.innerHTML += newDiv;
+                }
+            }
+        }
+
+
+        //the issue was that we are now passing in only the event data, so we don't need eventData.event[i], we just need eventData[i]
+        function dates(eventData,   targetDiv = importantDatesDiv){
+            targetDiv.innerHTML = "";
+            const currentDate = new Date();
+            console.log(eventData);
+            for(let i = 0; i<eventData.length; i++){ 
+                let foundFutureDates =false;
+                let eventName = eventData[i].event;
+                let eventClass = getEventClass(eventName);
+                let newDiv = `<div class="mini-container ${eventClass}">`;
+                let allDaysUntil = getDaysLeft(new Date(), new Date(eventData[i].days[0]));
+                let weekDaysUntil = getWeekdayCount(new Date(), new Date(eventData[i].days[0]));
+                newDiv += `<p class="big">${eventName}</p><p class="smol">(${weekDaysUntil - getDaysOffLeft(currentDate, new Date(eventData[i].days[0]))} / ${allDaysUntil})</p><ul>`;
+
+                    for(let j = 0; j<eventData[i].days.length; j++){
+                    let dayOffDate = new Date(eventData[i].days[j])
+                    if( dayOffDate> currentDate ){
+                        foundFutureDates = true;
+                        newDiv +=
+                         `                    
+                            <li class="eventitem">  ${eventData[i].days[j]} </li>
+                        
+                        `;
+                    }
+                }
+                if(foundFutureDates){
+                    newDiv += `</ul></div>`;
+                    targetDiv.innerHTML += newDiv;
+                }
+            }
+        }
+
+
 
         function getEventClass(eventName){
             switch(eventName.toUpperCase()){
@@ -316,7 +443,6 @@
         }
     </script>
     
-</body>
 </html>
 <!--Html Notes:-->
 <!--Border-radius is the rounded corners.-->
@@ -348,3 +474,7 @@
 <!--I have no idea what happened to the enddate. I might drag Klins to figure it out-->
 <!--*Confused Screaming*-->
 <!--OMG THE BORDERS WERE IN % IM GOING TO DIE AAAAAAHHHHHHHHh-->
+
+<!--I'm about to build some absolute bs code just to see if it works-->
+<!--Eh, it kinda worked. Now I've broken the site-->
+<!--This is annoying-->
