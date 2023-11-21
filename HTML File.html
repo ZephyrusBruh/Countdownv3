@@ -184,14 +184,14 @@
         let startDate, endDate;
         let dateData;
         const importantDatesDiv = document.getElementById("important-dates");
-        const importantMilestonessDiv = document.getElementById("important-milestones");
+        const importantMilestonesDiv = document.getElementById("important-milestones");
 
         document.getElementById("showDaysOff").addEventListener("click", function(){
-            importantMilestonessDiv.classList.add("hidden");
+            importantMilestonesDiv.classList.add("hidden");
             importantDatesDiv.classList.remove("hidden");
         });
         document.getElementById("showMilestones").addEventListener("click", function(){
-            importantMilestonessDiv.classList.remove("hidden");
+            importantMilestonesDiv.classList.remove("hidden");
             importantDatesDiv.classList.add("hidden");
         });
 
@@ -235,7 +235,7 @@
             checkParams();
 
             dates(data.events, importantDatesDiv); /*KLINS - THIS NEEDS REPEATED FOR MILESTONES  (use data.milestones) - the method may need tweaked */ 
-            
+            dates(data.milestones, importantMilestonesDiv); //<-- Breaks it currently
         }
         
 
@@ -270,28 +270,9 @@
         }
 
             //https://i.pinimg.com/originals/6e/57/be/6e57be0a1421720a0fbcd618727b9e3e.gif <-- Yippee
+            //https://i.gifer.com/embedded/download/YGg4.gif <-- Last day background
 
-/*
-        function getDaysOffLeft(){
-            let count = 0; //counts the number o' days off 
-            const currentDate = new Date();
-            let endDateObj = new Date(endDate);
-            for(let i = 0; i<dateData.events.length; i++){ 
-                let foundFutureDates =false; 
-                for(let j = 0; j<dateData.events[i].days.length; j++){
-                    let dayOffDate = new Date(dateData.events[i].days[j])
-                    if( dayOffDate> currentDate ){
-                        if(dayOffDate <= endDateObj){
-                            count ++;
-                        }
-                    }
-                }
-            }
-
-            return count;
-        }
-*/
-        function getDaysOffLeft(currentDate = new Date(), endDateObj = new Date(endDate)){
+            function getDaysOffLeft(currentDate = new Date(), endDateObj = new Date(endDate)){
             let count = 0; //counts the number o' days off 
 
             for(let i = 0; i<dateData.events.length; i++){ 
