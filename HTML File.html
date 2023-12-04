@@ -75,7 +75,7 @@
         }
 
         .winter{
-            background-color:#d1eaf0;
+            background-color:#d9f9e4;
             color:#3f6069;
         }
 
@@ -87,6 +87,27 @@
         .merica{
             background: rgb(177,36,36);
             background: linear-gradient(90deg, rgba(177,36,36,1) 0%, rgba(255,255,255,1) 50%, rgba(29,29,143,1) 100%);        
+        }
+        .bluemilestone{
+            background: rgb(31,149,230);
+            background: radial-gradient(circle, rgba(31,149,230,1) 0%, rgba(14,43,129,1) 100%);
+            color: #04436d;
+        }
+        .bronzemilestone{
+            background: rgb(230,124,31);
+            background: radial-gradient(circle, rgba(230,124,31,1) 0%, rgba(129,56,14,1) 100%);
+            color: #784e00;
+        }
+        .silvermilestone{
+            background: rgb(229,236,240);
+            background: radial-gradient(circle, rgba(229,236,240,1) 0%, rgba(229,236,240,1) 35%, rgba(112,117,128,1) 100%);
+            color: #787f82;
+        }
+        
+        .goldmilestone{
+            background: rgb(255,180,39);
+            background: radial-gradient(circle, rgba(255,180,39,1) 0%, rgba(252,165,3,1) 35%, rgba(173,99,0,1) 100%);
+            color: #784e00;
         }
 
         body, html{
@@ -202,7 +223,7 @@
                 processDateFile(data);               
         })
         //Write start date and end date when you can think again
-        // (For some reason, this [BEEP] mostly got deleted and [BEEP]-ed with???)
+        
         function processDateFile(data){
             printThings(data);
             dateData = data;
@@ -396,6 +417,18 @@
                 case "PRESIDENTS' DAY":
                 case "MEMORIAL DAY":
                     return "merica";
+                case "END OF Q1":
+                case "MIDDLE OF Q1":
+                    return "bronzemilestone";                    
+                case "END OF Q2":
+                case "MIDDLE OF Q2":
+                    return "bronzemilestone";
+                case "END OF Q3":
+                case "MIDDLE OF Q3":
+                    return "silvermilestone";
+                case "END OF Q4":
+                case "MIDDLE OF Q4":
+                    return "goldmilestone";                    
             }
         }
 
@@ -459,3 +492,5 @@
 <!--I'm about to build some absolute bs code just to see if it works-->
 <!--Eh, it kinda worked. Now I've broken the site-->
 <!--This is annoying-->
+<!--(times for class am and pm)-->
+<!--(colors go brrrrr)-->
