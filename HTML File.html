@@ -156,8 +156,11 @@
             color:#572782;
             font-family: georgia, serif;
             /*border-style: hidden;*/
-            border-color: #e7d7f4;
+            border-color: #e7d7f4;     
+        
         }
+
+       
     </style>
 </head>
 <body>
@@ -169,6 +172,7 @@
         <div id="fileUpload" class="hidden">
             <input type="file" id="calendarFile"/><button id="processFile">Load</button>
         </div>
+        <!--I don't remember how to open this-->
     
      <!--Leave us alone, it'll go away later (maybe)-->
         <!--So...about the center tag...( ;._.)-->
@@ -194,7 +198,17 @@
     <!--Stretchy---->
  
     </div>
-    <br>
+    <div>
+    <div id="yippee"style="background-color:#ffffff ;cursor: default; height:100px; width:100px; display: inline-block">
+        <img style="width:80%"src="https://f2.toyhou.se/file/f2-toyhou-se/thumbnails/74413749_DQt.gif" />
+        <div id="wordYippee" class="hidden" style="font-family: cursive">Yipee</div>
+    </div>
+    <div id="sus"style="background-color:#ffffff ;cursor: default; height:100px; width:100px; float: right; display: inline-block">
+      <img style="width:80%"src="https://f2.toyhou.se/file/f2-toyhou-se/images/74412876_A8N74a27mPBnDYz.png" />
+      <div id="wordSus" class="hidden" style="font-family: cursive">Sus</div>
+    </div>
+    </div>
+
 </body>    
 <footer> Made by Zeph Burek and Arlo Russell </footer>
 
@@ -206,6 +220,9 @@
         let dateData;
         const importantDatesDiv = document.getElementById("important-dates");
         const importantMilestonesDiv = document.getElementById("important-milestones");
+        const explodesDiv = document.getElementById("wordYippee");
+        const ejectedDiv = document.getElementById("wordSus");
+
 
         document.getElementById("showDaysOff").addEventListener("click", function(){
             importantMilestonesDiv.classList.add("hidden");
@@ -215,6 +232,14 @@
             importantMilestonesDiv.classList.remove("hidden");
             importantDatesDiv.classList.add("hidden");
         });
+
+        document.getElementById("yippee").addEventListener("click", function(){
+                explodesDiv.classList.remove("hidden");
+        });
+        document.getElementById("sus").addEventListener("click", function(){
+                ejectedDiv.classList.remove("hidden");
+        });
+
 
         //Pulls dates from a cq
         fetch("https://ects-cmp.com/files/calendar.json")
