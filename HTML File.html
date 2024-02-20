@@ -100,7 +100,7 @@
         }
         .silvermilestone{
             background: rgb(229,236,240);
-            background: radial-gradient(circle, rgba(229,236,240,1) 0%, rgba(229,236,240,1) 35%, rgba(112,117,128,1) 100%);
+            background: radial-gradient(circle, rgba(229,236,240,1) 0%, rgba(112,117,128,1) 100%);
             color: #787f82;
         }
         
@@ -108,6 +108,13 @@
             background: rgb(255,180,39);
             background: radial-gradient(circle, rgba(255,180,39,1) 0%, rgba(252,165,3,1) 35%, rgba(173,99,0,1) 100%);
             color: #784e00;
+        }
+
+        .nocti{
+            background: #ff0000;
+            background: radial-gradient(circle, rgba(255, 0, 0, 1) 0%, rgba(150, 0, 0, 1) 100%);
+            color: #250046;
+            font: italic bold 1.2rem "Fira Sans", serif;
         }
 
         body, html{
@@ -180,7 +187,7 @@
         <div class="big-container" title="School Days Left">
             <p  style="font-size:100px" id="weekdaysLeft"></p>
         </div>
-        <div class="mini-container" style="width:25%; box-shadow: 10px 5px 5px #6e4592;
+        <div class="mini-container" title="Full Days Left" style="width:25%; box-shadow: 10px 5px 5px #6e4592;
         ">
             <p class="big" style="margin:6%" id="daysLeft"></p>
         </div>
@@ -235,10 +242,12 @@
         });
 
         document.getElementById("yippee").addEventListener("click", function(){
-                explodesDiv.classList.remove("hidden");
+            explodesDiv.classList.remove("hidden");
+            ejectedDiv.classList.add("hidden")
         });
         document.getElementById("sus").addEventListener("click", function(){
-                ejectedDiv.classList.remove("hidden");
+            ejectedDiv.classList.remove("hidden");
+            explodesDiv.classList.add("hidden")
         });
 
 
@@ -454,7 +463,11 @@
                     return "silvermilestone";
                 case "END OF Q4":
                 case "MIDDLE OF Q4":
-                    return "goldmilestone";                    
+                    return "goldmilestone";    
+                case "NOCTI WRITTEN PRE-TEST (JUNIORS)":
+                case "NOCTI WRITTEN TEST (SENIORS)":
+                case "NOCTI PERFORMANCE TEST (SENIORS)":
+                    return "nocti";
             }
         }
 
