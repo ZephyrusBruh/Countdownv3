@@ -38,15 +38,12 @@ fetch("https://ects-cmp.com/files/calendar.json")
 function processDateFile(data){
     printThings(data);
     dateData = data;
-
-    
     //get the current date (it will be a date object)
     var today = new Date();
     var dd = String(today.getDate());
     var mm = String(today.getMonth() + 1);
     var yyyy = today.getFullYear();
-    var todaystr = mm + '/' + dd + '/' + yyyy;
-   // document.getElementById("today").innerHTML = today;                      
+    var todaystr = mm + '/' + dd + '/' + yyyy;                    
     //print out how many days from now until then
     endDate = data.endday;
     startDate = data.startday;
@@ -54,14 +51,9 @@ function processDateFile(data){
     //convert the enddate to a date object  
     //subtract all days listed as events after today from the weekdaysLeft 
     var weekdaysCount = getWeekdayCount();
-  //  document.getElementById("weekdaysCount").innerHTML = weekdaysCount;
     var daysOffCount = getDaysOffLeft();
-
-
     var weekdaysLeft = weekdaysCount - daysOffCount;
-    document.getElementById("weekdaysLeft").innerHTML = weekdaysLeft;
-   // document.getElementById("enddate").innerHTML = endDate; //haha...
-    
+    document.getElementById("weekdaysLeft").innerHTML = weekdaysLeft;  
     var daysLeft = getDaysLeft();
     document.getElementById("daysLeft").innerHTML = daysLeft
     checkParams();
@@ -73,8 +65,6 @@ function processDateFile(data){
 
 function getDaysLeft(currentDate = new Date(), endDateObj = new Date(endDate)) {
     let count = 0;
-   // const currentDate = new Date();
-   // const endDateObj = new Date(endDate);
     console.log(currentDate);
     console.log(endDate);
     while (currentDate <= endDateObj) {
@@ -100,9 +90,6 @@ function getWeekdayCount(currentDate = new Date(), endDateObj = new Date(endDate
     }   
     return count;
 }
-
-    //https://i.pinimg.com/originals/6e/57/be/6e57be0a1421720a0fbcd618727b9e3e.gif <-- Yippee
-    //https://i.gifer.com/embedded/download/YGg4.gif <-- Last day background
 
     function getDaysOffLeft(currentDate = new Date(), endDateObj = new Date(endDate)){
     let count = 0; //counts the number o' days off 
@@ -181,7 +168,6 @@ function milestones (){
         }
     }
 }
-
 
 //the issue was that we are now passing in only the event data, so we don't need eventData.event[i], we just need eventData[i]
 function dates(eventData,   targetDiv = importantDatesDiv){
