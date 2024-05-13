@@ -1,4 +1,3 @@
-
 let startDate, endDate;
 let dateData;
 const importantDatesDiv = document.getElementById("important-dates");
@@ -36,7 +35,6 @@ fetch("https://ects-cmp.com/files/calendar.json")
 //Write start date and end date when you can think again
 
 function processDateFile(data){
-    printThings(data);
     dateData = data;
     //get the current date (it will be a date object)
     var today = new Date();
@@ -61,12 +59,8 @@ function processDateFile(data){
     dates(data.events, importantDatesDiv); /*KLINS - THIS NEEDS REPEATED FOR MILESTONES  (use data.milestones) - the method may need tweaked */ 
     dates(data.milestones, importantMilestonesDiv); //<-- Breaks it currently
 }
-
-
 function getDaysLeft(currentDate = new Date(), endDateObj = new Date(endDate)) {
     let count = 0;
-    console.log(currentDate);
-    console.log(endDate);
     while (currentDate <= endDateObj) {
         
         const dayOfWeek = currentDate.getDay();
@@ -75,11 +69,8 @@ function getDaysLeft(currentDate = new Date(), endDateObj = new Date(endDate)) {
     }   
     return count;
 }
-
 function getWeekdayCount(currentDate = new Date(), endDateObj = new Date(endDate)) {
     let count = 0;
-    console.log(currentDate);
-    console.log(endDate);
     while (currentDate <= endDateObj) {
         
         const dayOfWeek = currentDate.getDay();
@@ -90,8 +81,7 @@ function getWeekdayCount(currentDate = new Date(), endDateObj = new Date(endDate
     }   
     return count;
 }
-
-    function getDaysOffLeft(currentDate = new Date(), endDateObj = new Date(endDate)){
+function getDaysOffLeft(currentDate = new Date(), endDateObj = new Date(endDate)){
     let count = 0; //counts the number o' days off 
 
     for(let i = 0; i<dateData.events.length; i++){ 
@@ -128,7 +118,7 @@ function dates(){
                 newDiv +=
                  `                    
                     <li class="eventitem">  ${dateData.events[i].days[j]} </li>
-                
+                    
                 `;
             }
         }
@@ -173,7 +163,6 @@ function milestones (){
 function dates(eventData,   targetDiv = importantDatesDiv){
     targetDiv.innerHTML = "";
     const currentDate = new Date();
-    console.log(eventData);
     for(let i = 0; i<eventData.length; i++){ 
         let foundFutureDates =false;
         let eventName = eventData[i].event;
@@ -187,9 +176,16 @@ function dates(eventData,   targetDiv = importantDatesDiv){
             let dayOffDate = new Date(eventData[i].days[j])
             if( dayOffDate> currentDate ){
                 foundFutureDates = true;
+                console.log(eventData[i].days[j])
                 newDiv +=
                  `                    
-                    <li class="eventitem">  ${eventData[i].days[j]} </li>
+                    <li class="eventitem">  ${eventData[i].days[j]} <add-to-calendar-button
+                    name="Title"
+                    options="'Apple','Google'"
+                    location="World Wide Web"
+                    startDate="${eventData[i].days[j]}"
+                    endDate="${eventData[i].days[j]}"
+                ></add-to-calendar-button></li>
                 
                 `;
             }
@@ -229,20 +225,6 @@ function getEventClass(eventName){
         case "NOCTI PERFORMANCE TEST (SENIORS)":
             return "nocti";
     }
-}
-
-function printThings(data){
-    console.log(data);
-    for(let i = 0; i<data.events.length; i++){ 
-        console.log(data.events[i].event); 
-            for(let j = 0; j<data.events[i].days.length; j++){
-                console.log(data.events[i].days[j]);
-            }
-    }
-    console.log(data.events[0]);//the whole first event object
-    console.log(data.events[0].event);//the event description
-    console.log(data.events[0].days);//the days associated with the event
-    console.log(data.events[0].days[0]);//the first associated day of the event
 }
 
 function checkParams(){
