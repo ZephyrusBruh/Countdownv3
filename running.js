@@ -176,17 +176,13 @@ function dates(eventData,   targetDiv = importantDatesDiv){
             let dayOffDate = new Date(eventData[i].days[j])
             if( dayOffDate> currentDate ){
                 foundFutureDates = true;
-                console.log(eventData[i].days[j])
                 newDiv +=
                  `                    
                     <li class="eventitem">  ${eventData[i].days[j]} <center><add-to-calendar-button 
-                    name="Sample Event"
-                    description="Play with me!"
+                    name="${eventName}"
                     startDate="${eventData[i].days[j]}"
                     options="'Apple','Google','Outlook.com','MicrosoftTeams'"
                     buttonStyle="text"
-                    hideBackground
-                    lightMode="bodyScheme"
                   ></add-to-calendar-button></center>
                 
                 `;
