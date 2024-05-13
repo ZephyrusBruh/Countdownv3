@@ -179,13 +179,15 @@ function dates(eventData,   targetDiv = importantDatesDiv){
                 console.log(eventData[i].days[j])
                 newDiv +=
                  `                    
-                    <li class="eventitem">  ${eventData[i].days[j]} <add-to-calendar-button
-                    name="Title"
-                    options="'Apple','Google','Outlook.com'"
-                    location="World Wide Web"
+                    <li class="eventitem">  ${eventData[i].days[j]} <center><add-to-calendar-button 
+                    name="Sample Event"
+                    description="Play with me!"
                     startDate="${eventData[i].days[j]}"
-                    endDate="${eventData[i].days[j]}"
-                ></add-to-calendar-button></li>
+                    options="'Apple','Google','Outlook.com','MicrosoftTeams'"
+                    buttonStyle="text"
+                    hideBackground
+                    lightMode="bodyScheme"
+                  ></add-to-calendar-button></center>
                 
                 `;
             }
