@@ -181,7 +181,7 @@ function dates(eventData,   targetDiv = importantDatesDiv){
                  `                    
                     <li class="eventitem">  ${eventData[i].days[j]} <add-to-calendar-button
                     name="Title"
-                    options="'Apple','Google'"
+                    options="'Apple','Google','Outlook.com'"
                     location="World Wide Web"
                     startDate="${eventData[i].days[j]}"
                     endDate="${eventData[i].days[j]}"
