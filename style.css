@@ -153,3 +153,10 @@
             border-color: #e7d7f4;     
         
         }
+        add-to-calendar-button#css-part-example::part(atcb-button) {
+            background-color: #e7d7f4;
+            color:#352047;
+            font-family:Georgia, serif;
+            display: flex;
+            justify-content: center;
+        }

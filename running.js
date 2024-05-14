@@ -125,10 +125,11 @@ function dates(eventData,   targetDiv = importantDatesDiv){
                 newDiv +=
                  `                    
                     <li class="eventitem">  ${eventData[i].days[j]} <center><add-to-calendar-button 
+                    id="css-part-example"
                     name="${eventName}"
                     startDate="${eventData[i].days[j]}"
                     options="'Apple','Google','Outlook.com','MicrosoftTeams'"
-                    buttonStyle="text"
+                    lightMode="bodyScheme"
                   ></add-to-calendar-button></center>                
                 `;
             }
