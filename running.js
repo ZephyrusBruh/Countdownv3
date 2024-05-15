@@ -65,7 +65,7 @@ function processDateFile(data){
 
     dates(data.events, importantDatesDiv); /*KLINS - THIS NEEDS REPEATED FOR MILESTONES  (use data.milestones) - the method may need tweaked */ 
     dates(data.milestones, importantMilestonesDiv);
-    dates(data.teacherduties, importateDutiesDiv);
+    dates(data.teacherduties, importateDutiesDiv, true);
 }
 function getDaysLeft(currentDate = new Date(), endDateObj = new Date(endDate)) {
     let count = 0;
@@ -107,7 +107,7 @@ function getDaysOffLeft(currentDate = new Date(), endDateObj = new Date(endDate)
 
 
 //the issue was that we are now passing in only the event data, so we don't need eventData.event[i], we just need eventData[i]
-function dates(eventData,   targetDiv = importantDatesDiv){
+function dates(eventData,   targetDiv = importantDatesDiv, showcalendar = false){
     targetDiv.innerHTML = "";
     const currentDate = new Date();
     for(let i = 0; i<eventData.length; i++){ 
@@ -122,7 +122,8 @@ function dates(eventData,   targetDiv = importantDatesDiv){
             let dayOffDate = new Date(eventData[i].days[j])
             if(dayOffDate> currentDate ){
                 foundFutureDates = true;
-                newDiv +=
+                if(showcalendar){
+                    newDiv +=
                  `                    
                     <li class="eventitem">  ${eventData[i].days[j]} <center><add-to-calendar-button 
                     id="css-part-example"
@@ -132,6 +133,13 @@ function dates(eventData,   targetDiv = importantDatesDiv){
                     lightMode="bodyScheme"
                   ></add-to-calendar-button></center>                
                 `;
+                } else {
+                    newDiv +=
+                 `                    
+                    <li class="eventitem">  ${eventData[i].days[j]} 
+                  `;
+                }
+                
             }
         }
         if(foundFutureDates){
