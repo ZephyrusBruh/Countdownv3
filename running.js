@@ -56,17 +56,13 @@ pastDates.addEventListener("change",function(){
     }
     
 });
-
-
 //Pulls dates from a cq
 fetch("https://ects-cmp.com/files/calendar.json?v=3")
 .then(resp => resp.json())
 .then(data => {
         processDateFile(data);               
 })
-
 //Write start date and end date when you can think again
-
 function processDateFile(data, show = false){
     dateData = data;
     //get the current date (it will be a date object)
@@ -78,7 +74,6 @@ function processDateFile(data, show = false){
     //print out how many days from now until then
     endDate = data.endday;
     startDate = data.startday;
-
     //convert the enddate to a date object  
     //subtract all days listed as events after today from the weekdaysLeft 
     var weekdaysCount = getWeekdayCount();
@@ -89,7 +84,6 @@ function processDateFile(data, show = false){
     document.getElementById("daysLeft").innerHTML = daysLeft
     checkParams();
     if(show == true){
-        
         dates(data.events, importantDatesDiv, true);
         dates(data.milestones, importantMilestonesDiv, true);
         dates(data.teacherduties, importateDutiesDiv, true, true);
@@ -98,12 +92,10 @@ function processDateFile(data, show = false){
         dates(data.milestones, importantMilestonesDiv);
         dates(data.teacherduties, importateDutiesDiv, false, true);
     }
-
 }
 function getDaysLeft(currentDate = new Date(), endDateObj = new Date(endDate)) {
     let count = 0;
     while (currentDate <= endDateObj) {
-        
         const dayOfWeek = currentDate.getDay();
                 count++;
         currentDate.setDate(currentDate.getDate() + 1);
