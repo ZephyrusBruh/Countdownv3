@@ -6,6 +6,9 @@ const importateDutiesDiv = document.getElementById("important-duties");
 const importantTimesDiv = document.getElementById("important-times"); //For Zeph's class times cuase idk how I would do that :)
 const explodesDiv = document.getElementById("wordYippee");
 const ejectedDiv = document.getElementById("wordSus");
+// bruh
+var pastDates = document.getElementById("showPastDates");
+var scam = 0;
 
 
 document.getElementById("showDaysOff").addEventListener("click", function(){
@@ -31,6 +34,28 @@ document.getElementById("sus").addEventListener("click", function(){
     ejectedDiv.classList.remove("hidden");
     explodesDiv.classList.add("hidden")
 });
+pastDates.addEventListener("change",function(){
+    scam +=1
+
+    importantDatesDiv.innerHTML="";
+    importantMilestonesDiv.innerHTML="";
+    importateDutiesDiv.innerHTML="";
+    console.log(scam%2)
+    if (scam % 2 != 0){
+        fetch("https://ects-cmp.com/files/calendar.json?v=3")
+        .then(resp => resp.json())
+        .then(data => {
+                processDateFile(data, true);               
+        })
+    } else{
+        fetch("https://ects-cmp.com/files/calendar.json?v=3")
+        .then(resp => resp.json())
+        .then(data => {
+                processDateFile(data);               
+        })
+    }
+    
+});
 
 
 //Pulls dates from a cq
@@ -39,9 +64,10 @@ fetch("https://ects-cmp.com/files/calendar.json?v=3")
 .then(data => {
         processDateFile(data);               
 })
+
 //Write start date and end date when you can think again
 
-function processDateFile(data){
+function processDateFile(data, show = false){
     dateData = data;
     //get the current date (it will be a date object)
     var today = new Date();
@@ -62,10 +88,17 @@ function processDateFile(data){
     var daysLeft = getDaysLeft();
     document.getElementById("daysLeft").innerHTML = daysLeft
     checkParams();
+    if(show == true){
+        
+        dates(data.events, importantDatesDiv, true);
+        dates(data.milestones, importantMilestonesDiv, true);
+        dates(data.teacherduties, importateDutiesDiv, true, true);
+    } else {
+        dates(data.events, importantDatesDiv);
+        dates(data.milestones, importantMilestonesDiv);
+        dates(data.teacherduties, importateDutiesDiv, false, true);
+    }
 
-    dates(data.events, importantDatesDiv); /*KLINS - THIS NEEDS REPEATED FOR MILESTONES  (use data.milestones) - the method may need tweaked */ 
-    dates(data.milestones, importantMilestonesDiv);
-    dates(data.teacherduties, importateDutiesDiv, true);
 }
 function getDaysLeft(currentDate = new Date(), endDateObj = new Date(endDate)) {
     let count = 0;
@@ -107,7 +140,7 @@ function getDaysOffLeft(currentDate = new Date(), endDateObj = new Date(endDate)
 
 
 //the issue was that we are now passing in only the event data, so we don't need eventData.event[i], we just need eventData[i]
-function dates(eventData,   targetDiv = importantDatesDiv, showcalendar = false){
+function dates(eventData,   targetDiv = importantDatesDiv,showPast = false, showcalendar = false){
     targetDiv.innerHTML = "";
     const currentDate = new Date();
     for(let i = 0; i<eventData.length; i++){ 
@@ -120,7 +153,7 @@ function dates(eventData,   targetDiv = importantDatesDiv, showcalendar = false)
         newDiv += `<p class="big">${eventName}</p><p class="smol">(${weekDaysUntil - getDaysOffLeft(currentDate, new Date(eventData[i].days[0]))} / ${allDaysUntil})</p><ul>`;
             for(let j = 0; j<eventData[i].days.length; j++){
             let dayOffDate = new Date(eventData[i].days[j])
-            if(dayOffDate> currentDate ){
+            if(dayOffDate> currentDate && showPast == false){
                 foundFutureDates = true;
                 if(showcalendar){
                     newDiv +=
@@ -140,6 +173,26 @@ function dates(eventData,   targetDiv = importantDatesDiv, showcalendar = false)
                   `;
                 }
                 
+            }
+            if(showPast == true){
+                foundFutureDates = true;
+                if(showcalendar){
+                    newDiv +=
+                 `                    
+                    <li class="eventitem">  ${eventData[i].days[j]} <center><add-to-calendar-button 
+                    id="css-part-example"
+                    name="${eventName}"
+                    startDate="${eventData[i].days[j]}"
+                    options="'Apple','Google','Outlook.com','MicrosoftTeams'"
+                    lightMode="bodyScheme"
+                  ></add-to-calendar-button></center>                
+                `;
+                } else {
+                    newDiv +=
+                 `                    
+                    <li class="eventitem">  ${eventData[i].days[j]} 
+                  `;
+                }
             }
         }
         if(foundFutureDates){
@@ -162,7 +215,7 @@ function getEventClass(eventName){
             return "merica";
         case "END OF Q1":
         case "MIDDLE OF Q1":
-            return "bronzemilestone";                    
+            return "bluemilestone";                    
         case "END OF Q2":
         case "MIDDLE OF Q2":
             return "bronzemilestone";
