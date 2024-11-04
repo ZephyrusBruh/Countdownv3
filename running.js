@@ -220,6 +220,7 @@ function getEventClass(eventName){
         case "NOCTI WRITTEN PRE-TEST (JUNIORS)":
         case "NOCTI WRITTEN TEST (SENIORS)":
         case "NOCTI PERFORMANCE TEST (SENIORS)":
+        case "NOCTI MAKE UP WRITTEN TEST (SENIORS)":
             return "nocti";
         case "SENIOR AWARDS CEREMONY":
         case "LAST TEACHER DAY":
