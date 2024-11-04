@@ -1,5 +1,9 @@
-
-        header {
+body{
+    margin: 0px;
+}
+ 
+ 
+ header {
             background-color: #ad89cc;
             color: #352047;
             padding: 30px;
