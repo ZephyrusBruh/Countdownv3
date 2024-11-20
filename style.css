@@ -165,6 +165,13 @@ button{
     border-color: #e7d7f4;     
 }
 
+.disabled{
+    cursor: not-allowed;
+    background-color:#C1BDC4;
+    border-color: #C1BDC4;
+    color:#555357;
+}
+
 add-to-calendar-button#css-part-example::part(atcb-button) {
     background-color: #e7d7f4;
     color:#352047;
@@ -176,6 +183,39 @@ add-to-calendar-button#css-part-example::part(atcb-button) {
 #yippee, #wordSus {
     margin-left: 10px;
     margin-bottom: 10px;
+}
+
+.calendarMonth{
+    font-size: 4rem;
+}
+
+.monthCalendar{
+    margin: auto;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.monthDay{
+    border: 2px solid;
+    height: 1.5in;
+    width: 1.5in;
+    font-size: 1.25rem;
+    text-align: left;
+    vertical-align: text-top;
+}
+
+.weekButton{
+    margin-right: 20px;
+    padding: 20px;
+    background-color: #572782;
+    color: #e7d7f4;
+    font-size: 1.25rem;
+}
+
+
+th{
+    font-size: 1.4rem;
 }
 
 /* The switch - the box around the slider */

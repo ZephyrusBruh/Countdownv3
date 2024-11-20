@@ -3,28 +3,38 @@ let dateData;
 const importantDatesDiv = document.getElementById("important-dates");
 const importantMilestonesDiv = document.getElementById("important-milestones");
 const importateDutiesDiv = document.getElementById("important-duties");
-const importantTimesDiv = document.getElementById("important-times"); //For Zeph's class times cuase idk how I would do that :)
+const calendarDiv = document.getElementById("calendar"); //Stealing this for myself now.
 const explodesDiv = document.getElementById("wordYippee");
 const ejectedDiv = document.getElementById("wordSus");
 // bruh
 var pastDates = document.getElementById("showPastDates");
 var scam = 0;
 
+document.getElementById("showCalendar").disabled=false;
 
 document.getElementById("showDaysOff").addEventListener("click", function(){
-    importantMilestonesDiv.classList.add("hidden");
     importantDatesDiv.classList.remove("hidden");
+    importantMilestonesDiv.classList.add("hidden");
     importateDutiesDiv.classList.add("hidden");
+    calendarDiv.classList.add("hidden");
 });
 document.getElementById("showMilestones").addEventListener("click", function(){
-    importantMilestonesDiv.classList.remove("hidden");
     importantDatesDiv.classList.add("hidden");
+    importantMilestonesDiv.classList.remove("hidden");
     importateDutiesDiv.classList.add("hidden");
+    calendarDiv.classList.add("hidden");
 });
 document.getElementById("showteacherduites").addEventListener("click", function(){
-    importantMilestonesDiv.classList.add("hidden");
     importantDatesDiv.classList.add("hidden");
+    importantMilestonesDiv.classList.add("hidden");
     importateDutiesDiv.classList.remove("hidden");
+    calendarDiv.classList.add("hidden");
+});
+document.getElementById("showCalendar").addEventListener("click", function(){
+    importantDatesDiv.classList.add("hidden");
+    importantMilestonesDiv.classList.add("hidden");
+    importateDutiesDiv.classList.add("hidden");
+    calendarDiv.classList.remove("hidden");
 });
 document.getElementById("yippee").addEventListener("click", function(){
     explodesDiv.classList.remove("hidden");
