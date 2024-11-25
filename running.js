@@ -10,7 +10,7 @@ const ejectedDiv = document.getElementById("wordSus");
 var pastDates = document.getElementById("showPastDates");
 var scam = 0;
 
-document.getElementById("showCalendar").disabled=false;
+document.getElementById("showCalendar").disabled=true;
 
 document.getElementById("showDaysOff").addEventListener("click", function(){
     importantDatesDiv.classList.remove("hidden");

@@ -189,11 +189,15 @@ add-to-calendar-button#css-part-example::part(atcb-button) {
     font-size: 4rem;
 }
 
-.monthCalendar{
+.monthCalendar, .weekCalendar{
     margin: auto;
     border-collapse: collapse;
     margin-bottom: 20px;
     margin-top: 20px;
+}
+
+th{
+    font-size: 1.4rem;
 }
 
 .monthDay{
@@ -205,17 +209,34 @@ add-to-calendar-button#css-part-example::part(atcb-button) {
     vertical-align: text-top;
 }
 
+.tableButton{
+    width: 1.5in;
+}
+
 .weekButton{
-    margin-right: 20px;
+    margin-right: 3px;
     padding: 20px;
     background-color: #572782;
     color: #e7d7f4;
     font-size: 1.25rem;
 }
 
+.weekCalendar th{
+    width: 1.5in;
+    border: 2px solid;
+}
 
-th{
-    font-size: 1.4rem;
+.weekCalendar tr{
+    width: 887px;
+}
+
+.weekDay{
+    border: 2px solid;
+    height: 1.5in;
+    width: 737px;
+    font-size: 1.75rem;
+    text-align: left;
+    vertical-align: text-top;
 }
 
 /* The switch - the box around the slider */
