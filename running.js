@@ -6,11 +6,13 @@ const importateDutiesDiv = document.getElementById("important-duties");
 const calendarDiv = document.getElementById("calendar"); //Stealing this for myself now.
 const explodesDiv = document.getElementById("wordYippee");
 const ejectedDiv = document.getElementById("wordSus");
+const monthCalendarDiv = document.getElementById("monthCalendar");
+const weekCalendarDiv = document.getElementById("weekCalendar");
 // bruh
 var pastDates = document.getElementById("showPastDates");
 var scam = 0;
 
-document.getElementById("showCalendar").disabled=true;
+document.getElementById("showCalendar").disabled=false;
 
 document.getElementById("showDaysOff").addEventListener("click", function(){
     importantDatesDiv.classList.remove("hidden");
@@ -36,13 +38,47 @@ document.getElementById("showCalendar").addEventListener("click", function(){
     importateDutiesDiv.classList.add("hidden");
     calendarDiv.classList.remove("hidden");
 });
+
+// Calendar Crap
+// Week #1
+document.getElementById("showWeek1").addEventListener("click", function(){
+    monthCalendarDiv.classList.add("hidden");
+    weekCalendarDiv.classList.remove("hidden");
+});
+// Week #2
+document.getElementById("showWeek2").addEventListener("click", function(){
+    monthCalendarDiv.classList.add("hidden");
+    weekCalendarDiv.classList.remove("hidden");
+});
+// Week #3
+document.getElementById("showWeek3").addEventListener("click", function(){
+    monthCalendarDiv.classList.add("hidden");
+    weekCalendarDiv.classList.remove("hidden");
+});
+// Week #4
+document.getElementById("showWeek4").addEventListener("click", function(){
+    monthCalendarDiv.classList.add("hidden");
+    weekCalendarDiv.classList.remove("hidden");
+});
+// Week #5
+document.getElementById("showWeek5").addEventListener("click", function(){
+    monthCalendarDiv.classList.add("hidden");
+    weekCalendarDiv.classList.remove("hidden");
+});
+// Back To Month
+document.getElementById("showMonth").addEventListener("click", function(){
+    monthCalendarDiv.classList.remove("hidden");
+    weekCalendarDiv.classList.add("hidden");
+})
+
+
 document.getElementById("yippee").addEventListener("click", function(){
     explodesDiv.classList.remove("hidden");
-    ejectedDiv.classList.add("hidden")
+    ejectedDiv.classList.add("hidden");
 });
 document.getElementById("sus").addEventListener("click", function(){
     ejectedDiv.classList.remove("hidden");
-    explodesDiv.classList.add("hidden")
+    explodesDiv.classList.add("hidden");
 });
 pastDates.addEventListener("change",function(){
     scam +=1

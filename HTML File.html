@@ -50,14 +50,14 @@
             <span class="slider round"></span>
           </label>      
           </div>    
-    <div id="important-dates" class="big-container "></div>
+    <div id="important-dates" class="big-container hidden"></div>
     <div id="important-milestones" class="big-container hidden">Help.</div>
     <div id="important-duties" class="big-container hidden">
         <p> huh?</p>
     </div>
-    <div id="calendar" class="big-container hidden">
+    <div id="calendar" class="big-container">
         <h2 class="calendarMonth">MONTH</h2>
-        <table class="monthCalendar">
+        <table id="monthCalendar">
             <tr>
                 <th></th>
                 <th>Monday</th>
@@ -118,26 +118,31 @@
             </tr>
         </table>
 
-        <table class="weekCalendar">
+        <table id="weekCalendar" class="hidden">
             <tr>
-                <th>00<br>Monday</th>
+                <th class="weekHeading">00<br>Monday</th>
                 <td class="weekDay">info</td>
             </tr>
             <tr>
-                <th>00<br>Tueday</th>
+                <th class="weekHeading">00<br>Tueday</th>
                 <td class="weekDay">info</td>
             </tr>
             <tr>
-                <th>00<br>Wednesday</th>
+                <th class="weekHeading">00<br>Wednesday</th>
                 <td class="weekDay">info</td>
             </tr>
             <tr>
-                <th>00<br>Thurday</th>
+                <th class="weekHeading">00<br>Thurday</th>
                 <td class="weekDay">info</td>
             </tr>
             <tr>
-                <th>00<br>Friday</th>
+                <th class="weekHeading">00<br>Friday</th>
                 <td class="weekDay">info</td>
+            </tr>
+            <tr>
+                <th id="monthButton">
+                    <button id="showMonth">Back to {{Month}}</button>
+                </th>
             </tr>
         </table>
     </div>
